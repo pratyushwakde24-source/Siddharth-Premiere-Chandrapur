@@ -203,6 +203,16 @@ let lastScrollY = window.scrollY;
 window.addEventListener('scroll', () => {
     const currentScrollY = window.scrollY;
     
+    // Hide scroll indicator once user starts scrolling
+    const scrollIndicator = document.getElementById('scroll-indicator');
+    if (scrollIndicator) {
+        if (currentScrollY > 50) {
+            gsap.to(scrollIndicator, { opacity: 0, pointerEvents: 'none', duration: 0.3 });
+        } else {
+            gsap.to(scrollIndicator, { opacity: 1, pointerEvents: 'auto', duration: 0.3 });
+        }
+    }
+    
     if (currentScrollY > lastScrollY && currentScrollY > 150) {
         // Scroll Down - hide header
         gsap.to(navHeader, { y: -120, duration: 0.4, ease: 'power3.out' });
@@ -211,7 +221,7 @@ window.addEventListener('scroll', () => {
         gsap.to(navHeader, { y: 0, duration: 0.5, ease: 'power3.out' });
     }
     lastScrollY = currentScrollY;
-});
+}, { passive: true });
 
 // Header active section highlighting using ScrollTrigger
 const navItems = document.querySelectorAll('.nav-links li');

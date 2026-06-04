@@ -555,8 +555,8 @@ section.hero-sec {
 }
 
 @keyframes scrollIndicatorFloat {
-    0%   { transform: translateX(-50%) translateY(0); }
-    100% { transform: translateX(-50%) translateY(-6px); }
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-6px); }
 }
 
 
@@ -3181,6 +3181,11 @@ section.rooms-sec {
     
     .btn-gbp {
         width: 100%;
+    }
+    
+    .scroll-indicator {
+        margin-top: 24px !important;
+        margin-bottom: 32px !important;
     }
 }
 
