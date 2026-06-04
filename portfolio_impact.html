@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400..900;1,400..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#2f3131",
+                        "surface-tint": "#e9c349",
+                        "on-surface": "#e5e2e1",
+                        "inverse-on-surface": "#313030",
+                        "surface-dim": "#131313",
+                        "outline-variant": "#4d4635",
+                        "surface-container-low": "#1c1b1b",
+                        "on-secondary": "#313030",
+                        "on-primary-fixed-variant": "#574500",
+                        "inverse-primary": "#735c00",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-tertiary-container": "#434546",
+                        "tertiary": "#cecece",
+                        "surface-container-high": "#2a2a2a",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "on-surface-variant": "#d0c5af",
+                        "on-secondary-container": "#b7b5b4",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "primary-fixed-dim": "#e9c349",
+                        "on-background": "#e5e2e1",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "primary-container": "#d4af37",
+                        "on-primary": "#3c2f00",
+                        "error": "#ffb4ab",
+                        "on-secondary-fixed-variant": "#474746",
+                        "tertiary-fixed": "#e2e2e2",
+                        "primary": "#f2ca50",
+                        "on-primary-container": "#554300",
+                        "tertiary-container": "#b2b3b3",
+                        "surface-container-lowest": "#0e0e0e",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "inverse-surface": "#e5e2e1",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "outline": "#99907c",
+                        "surface-bright": "#3a3939",
+                        "surface": "#131313",
+                        "on-primary-fixed": "#241a00",
+                        "secondary-container": "#474746",
+                        "surface-variant": "#353534",
+                        "primary-fixed": "#ffe088",
+                        "surface-container-highest": "#353534",
+                        "surface-container": "#201f1f",
+                        "secondary": "#c8c6c5",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "background": "#131313"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "margin-mobile": "24px",
+                        "margin-desktop": "80px",
+                        "gutter": "32px",
+                        "unit": "8px",
+                        "section-padding": "160px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Manrope"],
+                        "headline-lg": ["Bodoni Moda"],
+                        "display-lg-mobile": ["Bodoni Moda"],
+                        "display-lg": ["Bodoni Moda"],
+                        "body-lg": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "headline-md": ["Bodoni Moda"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "headline-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                        "display-lg-mobile": ["40px", {"lineHeight": "48px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "display-lg": ["72px", {"lineHeight": "80px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0.01em", "fontWeight": "300"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.15em", "fontWeight": "600"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "letterSpacing": "0.02em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(24px);
+            border: 0.5px solid rgba(242, 202, 80, 0.3);
+        }
+        .lustre-border-top {
+            border-top: 1px solid;
+            border-image: linear-gradient(to right, rgba(242, 202, 80, 0.5), transparent) 1;
+        }
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* WhatsApp Floating Button */
+        .whatsapp-floating-btn {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            width: 64px;
+            height: 64px;
+            background-color: #25D366;
+            border: 3px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 30px rgba(37, 211, 102, 0.4);
+            border-radius: 50%;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+            animation: luxury-pulse 2.5s infinite;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .whatsapp-floating-btn:hover {
+            transform: scale(1.12);
+            box-shadow: 0 0 40px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-icon {
+            width: 32px;
+            height: 32px;
+            fill: currentColor;
+            display: block;
+        }
+
+        .whatsapp-floating-btn .whatsapp-tooltip {
+            position: absolute;
+            bottom: 125%;
+            right: 0;
+            background-color: #000000;
+            color: #f2ca50;
+            padding: 8px 16px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            border-radius: 4px;
+            border: 1px solid rgba(242, 202, 80, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            transform: translateY(10px);
+        }
+
+        .whatsapp-floating-btn:hover .whatsapp-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        @keyframes luxury-pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 30px rgba(37, 211, 102, 0.4);
+            }
+            50% {
+                transform: scale(1.08);
+                box-shadow: 0 0 40px rgba(37, 211, 102, 0.6);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 30px rgba(37, 211, 102, 0.4);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .whatsapp-floating-btn {
+                right: 20px;
+                bottom: 20px;
+                width: 56px;
+                height: 56px;
+            }
+            .whatsapp-icon {
+                width: 28px;
+                height: 28px;
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface selection:bg-primary/30 font-body-md">
+<header class="fixed top-6 left-1/2 -translate-x-1/2 w-[92%] rounded-full bg-surface/60 backdrop-blur-xl border border-primary/30 shadow-2xl z-[100] flex justify-between items-center px-8 h-16 transition-transform duration-500" id="main-nav">
+<a class="font-headline-md text-headline-md text-primary tracking-tighter italic" href="index.html">HOTEL SIDDHARTH PREMIERE</a>
+<nav class="hidden lg:flex items-center gap-6">
+<a class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors duration-500" href="index.html#hero">Home</a>
+<a class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors duration-500" href="index.html#about">Hotel</a>
+<a class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors duration-500" href="index.html#services">Rooms</a>
+<a class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors duration-500" href="index.html#dining">Dining</a>
+<a class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors duration-500" href="index.html#events">Banquets</a>
+<a class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors duration-500" href="index.html#portfolio">Gallery</a>
+<a class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors duration-500" href="index.html#location">Location</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform" data-icon="account_circle">account_circle</span>
+<span class="material-symbols-outlined text-primary lg:hidden cursor-pointer active:scale-95 transition-transform" data-icon="menu">menu</span>
+</div>
+</header>
+<main class="relative overflow-hidden pt-32">
+<!-- Hero Section for Portfolio -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-section-padding">
+<div class="flex flex-col items-center text-center gap-6 scroll-reveal" id="portfolio-header">
+<span class="font-label-sm text-label-sm uppercase tracking-[0.4em] text-primary">Hotel Gallery</span>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface italic">Spaces &amp; Suites</h1>
+<p class="max-w-2xl font-body-lg text-body-lg text-on-surface-variant/80">Explore the luxury spaces designed to offer our guests a truly premier hospitality experience.</p>
+</div>
+</section>
+<!-- Portfolio Masonry Grid -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-section-padding">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Large Featured Project -->
+<div class="md:col-span-8 group relative overflow-hidden glass-card rounded-xl scroll-reveal aspect-[4/3] bg-black">
+<img class="w-full h-full object-contain transition-transform duration-[2s]" src="Hero/hero-exterior.jpg?v=1.1.0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-12">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-2">Hotel Facade</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Siddharth Premiere</h3>
+<p class="font-body-md text-body-md text-on-surface-variant/70 mt-4 max-w-lg">A striking modern facade that welcomes you with grand champagne gold lighting in Chandrapur.</p>
+</div>
+</div>
+<!-- Secondary High-Portrait Project -->
+<div class="md:col-span-4 group relative overflow-hidden glass-card rounded-xl scroll-reveal flex flex-col justify-end">
+<img class="w-full h-full min-h-[500px] object-cover transition-transform duration-[2s] group-hover:scale-110" src="Rooms/Suite/201511060947429069-2119-e2e581606b2611e5a2bc5ee5da2daa2a (1).avif"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-2">Premium Stay</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Luxury Suites</h3>
+</div>
+</div>
+<!-- Grid Item 3 -->
+<div class="md:col-span-4 group relative overflow-hidden glass-card rounded-xl scroll-reveal flex flex-col justify-end">
+<img class="w-full aspect-square object-cover transition-transform duration-[2s] group-hover:scale-110" src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-2">Welcome Lounge</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">The Grand Lobby</h3>
+</div>
+</div>
+<!-- Grid Item 4 - Wide -->
+<div class="md:col-span-8 group relative overflow-hidden glass-card rounded-xl scroll-reveal flex flex-col justify-end">
+<img class="w-full aspect-[21/9] object-cover transition-transform duration-[2s] group-hover:scale-110" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-12">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-2">Fine Cuisine</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Signature Restaurant</h3>
+</div>
+</div>
+</div>
+</section>
+<!-- Achievements Section -->
+<section class="bg-surface-container-lowest py-section-padding lustre-border-top relative overflow-hidden">
+<!-- Background Decoration -->
+<div class="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+<div class="scroll-reveal">
+<span class="font-label-sm text-label-sm uppercase tracking-[0.4em] text-primary mb-6 block">Why Choose Us</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-8">A Legacy of <br/><span class="italic">Exceptional Hospitality.</span></h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant/80 mb-12">We combine luxury rooms, premium dining, and professional service to make your business or family stay in Chandrapur comfortable.</p>
+<div class="flex flex-col gap-8">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="verified">verified</span>
+<div>
+<h4 class="font-label-sm text-label-sm text-on-surface uppercase tracking-widest mb-1">Unmatched Standards</h4>
+<p class="font-body-md text-body-md text-on-surface-variant/60">Widely rated as the premium hotel choice for corporate delegates and family visits in the district.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="public">public</span>
+<div>
+<h4 class="font-label-sm text-label-sm text-on-surface uppercase tracking-widest mb-1">Tadoba Safari Access</h4>
+<p class="font-body-md text-body-md text-on-surface-variant/60">Conveniently situated with full travel desk assistance for tour bookings and safaris to Tadoba Tiger Reserve.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-8 md:gap-12">
+<!-- Stat 1 -->
+<div class="glass-card p-10 flex flex-col items-center justify-center text-center scroll-reveal" style="transition-delay: 100ms;">
+<span class="text-primary font-display-lg-mobile md:font-headline-lg mb-2" id="stat-1">0</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant/50 uppercase tracking-[0.2em]">Luxury Suites</span>
+</div>
+<!-- Stat 2 -->
+<div class="glass-card p-10 flex flex-col items-center justify-center text-center translate-y-12 scroll-reveal" style="transition-delay: 300ms;">
+<span class="text-primary font-display-lg-mobile md:font-headline-lg mb-2" id="stat-2">0</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant/50 uppercase tracking-[0.2em]">Satisfied Guests</span>
+</div>
+<!-- Stat 3 -->
+<div class="glass-card p-10 flex flex-col items-center justify-center text-center scroll-reveal" style="transition-delay: 500ms;">
+<span class="text-primary font-display-lg-mobile md:font-headline-lg mb-2" id="stat-3">0</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant/50 uppercase tracking-[0.2em]">Premium Amenities</span>
+</div>
+<!-- Stat 4 -->
+<div class="glass-card p-10 flex flex-col items-center justify-center text-center translate-y-12 scroll-reveal" style="transition-delay: 700ms;">
+<span class="text-primary font-display-lg-mobile md:font-headline-lg mb-2" id="stat-4">0</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant/50 uppercase tracking-[0.2em]">Years of Hospitality</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Shell -->
+<footer class="w-full py-20 bg-surface-container-lowest border-t border-primary/30">
+<div class="max-w-container-max mx-auto px-margin-desktop flex flex-col items-center gap-12">
+<div class="font-headline-lg text-headline-lg text-primary tracking-tighter italic">HOTEL SIDDHARTH PREMIERE</div>
+
+<div class="text-center max-w-[600px] flex flex-col gap-3 font-light text-on-surface-variant">
+    <p class="text-sm tracking-wide"><span class="material-symbols-outlined text-primary text-lg align-middle mr-2" data-icon="location_on">location_on</span>Mul Road, Near Railway Overbridge, Chandrapur, Maharashtra - 442401</p>
+    <p class="text-sm tracking-wide">
+        <span class="material-symbols-outlined text-primary text-lg align-middle mr-2" data-icon="call">call</span>+91 7172 255101 / +91 94221 82345
+        <span class="mx-3 text-primary/30">|</span>
+        <span class="material-symbols-outlined text-primary text-lg align-middle mr-2" data-icon="mail">mail</span>stay@hotelsiddharthpremiere.com
+    </p>
+</div>
+
+<div class="flex flex-wrap justify-center gap-12">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:tracking-widest transition-all duration-700" href="index.html#hero">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:tracking-widest transition-all duration-700" href="index.html#about">Hotel</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:tracking-widest transition-all duration-700" href="index.html#services">Rooms</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:tracking-widest transition-all duration-700" href="index.html#dining">Dining</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:tracking-widest transition-all duration-700" href="index.html#events">Banquets</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:tracking-widest transition-all duration-700" href="index.html#portfolio">Gallery</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:tracking-widest transition-all duration-700" href="index.html#location">Location</a>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant/40 mt-8 tracking-[0.1em] uppercase">© 2026 HOTEL SIDDHARTH PREMIERE. ALL RIGHTS RESERVED.</p>
+</div>
+</footer>
+<!-- Bottom Nav for Mobile -->
+<nav class="lg:hidden fixed bottom-0 w-full z-50 bg-surface-container-lowest/80 backdrop-blur-2xl border-t border-primary/20 flex justify-around items-center h-20 px-6 pb-4">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/50 transition-all duration-300 ease-in-out" href="index.html#hero">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/50 transition-all duration-300 ease-in-out" href="index.html#services">
+<span class="material-symbols-outlined">king_bed</span>
+<span class="font-label-sm text-label-sm">Rooms</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/50 transition-all duration-300 ease-in-out" href="index.html#dining">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="font-label-sm text-label-sm">Dining</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/50 transition-all duration-300 ease-in-out" href="index.html#events">
+<span class="material-symbols-outlined">celebration</span>
+<span class="font-label-sm text-label-sm">Banquets</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#f2ca50] transition-all duration-300 ease-in-out" href="client_excellence.html#cta">
+<span class="material-symbols-outlined">book_online</span>
+<span class="font-label-sm text-label-sm">Book</span>
+</a>
+</nav>
+<script>
+        // Scroll Reveal Implementation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // If target has an ID starting with stat, trigger animation
+                    if (entry.target.id && entry.target.id.startsWith('stat-')) {
+                        // Already handled by separate function if needed but visible class is enough for CSS
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+        // Animated Counters for Stats
+        function animateValue(obj, start, end, duration, suffix = "") {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start) + suffix;
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        const statsSection = document.getElementById('stat-1').closest('section');
+        let animated = false;
+
+        window.addEventListener('scroll', () => {
+            const rect = statsSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight && !animated) {
+                animated = true;
+                setTimeout(() => animateValue(document.getElementById('stat-1'), 0, 50, 2000, "+"), 200);
+                setTimeout(() => animateValue(document.getElementById('stat-2'), 0, 15, 2000, "K+"), 400);
+                setTimeout(() => animateValue(document.getElementById('stat-3'), 0, 25, 2000, "+"), 600);
+                setTimeout(() => animateValue(document.getElementById('stat-4'), 0, 12, 2000, "+"), 800);
+            }
+        });
+
+        // Sticky Nav logic
+        let lastScroll = 0;
+        const nav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                nav.style.transform = 'translate(-50%, -150%)';
+            } else {
+                nav.style.transform = 'translate(-50%, 0)';
+            }
+            lastScroll = currentScroll;
+        });
+
+        // Intercept hash links for smooth scroll on page
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#') && targetId.length > 1) {
+                    e.preventDefault();
+                    const targetEl = document.querySelector(targetId);
+                    if (targetEl) {
+                        targetEl.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Create Tailwind-based Inquiry Modal
+        function createInquiryModal() {
+            if (document.getElementById('inquiry-modal')) return;
+            
+            const modalHtml = `
+                <div class="fixed inset-0 z-[9999] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 bg-black/85 backdrop-blur-md" id="inquiry-modal">
+                    <div class="w-[90%] max-w-[500px] bg-[#0e0e0e]/95 border border-[#f2ca50]/30 p-10 relative transform translate-y-8 transition-transform duration-300 rounded-none shadow-2xl max-h-[90vh] overflow-y-auto" id="inquiry-modal-card">
+                        <button class="absolute top-6 right-6 text-[#f2ca50] hover:scale-110 transition-transform" id="inquiry-modal-close" aria-label="Close Modal">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                        <h3 class="font-headline-md text-2xl text-[#f2ca50] mb-2 font-medium">Book Your Stay</h3>
+                        <p class="font-body-md text-sm text-[#e5e2e1]/60 mb-8 font-light">Reserve your luxury experience at Hotel Siddharth Premiere, Chandrapur.</p>
+                        <form class="flex flex-col gap-6" id="inquiry-form">
+                            <div class="relative w-full border-b border-[#e5e2e1]/30 focus-within:border-[#f2ca50] transition-colors py-2">
+                                <label class="text-[#f2ca50] text-[10px] uppercase tracking-widest block font-bold">Full Name</label>
+                                <input type="text" id="booking-name" class="w-full bg-transparent border-none outline-none text-[#e5e2e1] pt-1" required>
+                            </div>
+                            <div class="relative w-full border-b border-[#e5e2e1]/30 focus-within:border-[#f2ca50] transition-colors py-2">
+                                <label class="text-[#f2ca50] text-[10px] uppercase tracking-widest block font-bold">Email Address</label>
+                                <input type="email" id="booking-email" class="w-full bg-transparent border-none outline-none text-[#e5e2e1] pt-1" required>
+                            </div>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="relative w-full border-b border-[#e5e2e1]/30 focus-within:border-[#f2ca50] transition-colors py-2">
+                                    <label class="text-[#f2ca50] text-[10px] uppercase tracking-widest block font-bold">Check-In</label>
+                                    <input type="date" id="check-in-date" class="w-full bg-transparent border-none outline-none text-[#e5e2e1] pt-1 [color-scheme:dark]" required>
+                                </div>
+                                <div class="relative w-full border-b border-[#e5e2e1]/30 focus-within:border-[#f2ca50] transition-colors py-2">
+                                    <label class="text-[#f2ca50] text-[10px] uppercase tracking-widest block font-bold">Check-Out</label>
+                                    <input type="date" id="check-out-date" class="w-full bg-transparent border-none outline-none text-[#e5e2e1] pt-1 [color-scheme:dark]" required>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="relative w-full border-b border-[#e5e2e1]/30 focus-within:border-[#f2ca50] transition-colors py-2">
+                                    <label class="text-[#f2ca50] text-[10px] uppercase tracking-widest block font-bold mb-1">Room Type</label>
+                                    <select id="booking-room" class="w-full bg-transparent border-none outline-none text-[#e5e2e1] pt-1 cursor-pointer" required>
+                                        <option value="" disabled selected class="bg-[#0e0e0e]">Select Room...</option>
+                                        <option value="Luxury Suite" class="bg-[#0e0e0e]">Luxury Suite</option>
+                                        <option value="Business Stay" class="bg-[#0e0e0e]">Business Stay</option>
+                                        <option value="Family Suite" class="bg-[#0e0e0e]">Family Suite</option>
+                                    </select>
+                                </div>
+                                <div class="relative w-full border-b border-[#e5e2e1]/30 focus-within:border-[#f2ca50] transition-colors py-2">
+                                    <label class="text-[#f2ca50] text-[10px] uppercase tracking-widest block font-bold mb-1">Guests</label>
+                                    <select id="booking-guests" class="w-full bg-transparent border-none outline-none text-[#e5e2e1] pt-1 cursor-pointer" required>
+                                        <option value="1" class="bg-[#0e0e0e]">1 Guest</option>
+                                        <option value="2" selected class="bg-[#0e0e0e]">2 Guests</option>
+                                        <option value="3" class="bg-[#0e0e0e]">3 Guests</option>
+                                        <option value="4+" class="bg-[#0e0e0e]">4+ Guests</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="relative w-full border-b border-[#e5e2e1]/30 focus-within:border-[#f2ca50] transition-colors py-2">
+                                <label class="text-[#f2ca50] text-[10px] uppercase tracking-widest block font-bold">Special Requests</label>
+                                <textarea id="booking-message" class="w-full bg-transparent border-none outline-none text-[#e5e2e1] pt-1 resize-none" rows="2"></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-4 mt-4 bg-[#f2ca50] text-black font-bold uppercase tracking-widest text-xs hover:bg-[#ffe088] transition-colors">Confirm Reservation</button>
+                        </form>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            
+            const modal = document.getElementById('inquiry-modal');
+            const card = document.getElementById('inquiry-modal-card');
+            const closeBtn = document.getElementById('inquiry-modal-close');
+            const form = document.getElementById('inquiry-form');
+            
+            const checkInInput = form.querySelector('#check-in-date');
+            const checkOutInput = form.querySelector('#check-out-date');
+            
+            const todayStr = new Date().toISOString().split('T')[0];
+            checkInInput.setAttribute('min', todayStr);
+            checkInInput.value = todayStr;
+
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowStr = tomorrow.toISOString().split('T')[0];
+            checkOutInput.setAttribute('min', tomorrowStr);
+            checkOutInput.value = tomorrowStr;
+
+            checkInInput.addEventListener('change', () => {
+                const checkInDate = new Date(checkInInput.value);
+                const nextDay = new Date(checkInDate);
+                nextDay.setDate(nextDay.getDate() + 1);
+                const minCheckOutStr = nextDay.toISOString().split('T')[0];
+                checkOutInput.setAttribute('min', minCheckOutStr);
+                if (new Date(checkOutInput.value) <= checkInDate) {
+                    checkOutInput.value = minCheckOutStr;
+                }
+            });
+
+            window.openInquiryModal = () => {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                card.classList.remove('translate-y-8');
+            };
+            
+            window.closeInquiryModal = () => {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                card.classList.add('translate-y-8');
+            };
+            
+            closeBtn.addEventListener('click', window.closeInquiryModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) window.closeInquiryModal();
+            });
+            
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const userName = form.querySelector('#booking-name').value;
+                const userEmail = form.querySelector('#booking-email').value;
+                const roomSelected = form.querySelector('#booking-room').value;
+                
+                card.innerHTML = `
+                    <div class="text-center py-6">
+                        <span class="material-symbols-outlined text-[#f2ca50] text-6xl mb-6">check_circle</span>
+                        <h3 class="font-headline-md text-2xl text-[#f2ca50] mb-4 font-medium">Booking Request Received</h3>
+                        <p class="font-body-md text-[#e5e2e1] mb-4 font-light">Thank you, <strong>${userName}</strong>! Your request for <strong>${roomSelected}</strong> has been logged.</p>
+                        <p class="font-body-md text-[#e5e2e1]/60 mb-8 font-light">A summary has been sent to <strong>${userEmail}</strong>. Our booking desk will contact you within 2-4 hours.</p>
+                        <button class="w-full py-4 bg-[#f2ca50] text-black font-bold uppercase tracking-widest text-xs hover:bg-[#ffe088] transition-colors" onclick="window.closeInquiryModal()">Close</button>
+                    </div>
+                `;
+            });
+        }
+
+        createInquiryModal();
+        
+        const inquiryTriggers = document.querySelectorAll('.inquire-trigger');
+        inquiryTriggers.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.openInquiryModal();
+            });
+        });
+    </script>
+
+    <!-- Floating WhatsApp Booking Button -->
+    <a href="https://wa.me/918412800000?text=Hello%20Hotel%20Siddharth%20Premiere,%20I%20would%20like%20to%20enquire%20about%20room%20availability%20and%20booking." 
+       class="whatsapp-floating-btn" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       aria-label="Chat With Us">
+        <svg class="whatsapp-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12.012 2c-5.506 0-9.988 4.482-9.988 9.988 0 1.761.459 3.477 1.332 4.992L2 22l5.163-1.355a9.923 9.923 0 0 0 4.849 1.266c5.506 0 9.987-4.481 9.987-9.988s-4.481-9.935-9.987-9.935zm0 18.232c-1.579 0-3.122-.424-4.475-1.226l-.32-.19-3.327.873.889-3.245-.208-.33c-.878-1.398-1.343-3.023-1.343-4.708 0-4.786 3.893-8.679 8.679-8.679 4.787 0 8.68 3.893 8.68 8.679 0 4.786-3.893 8.68-8.68 8.68zm4.761-6.505c-.26-.13-1.543-.762-1.782-.849-.24-.087-.413-.13-.586.13-.173.26-.671.849-.822 1.022-.152.173-.304.195-.565.065-.26-.13-1.101-.406-2.098-1.296-.776-.693-1.3-1.55-1.452-1.81-.152-.26-.016-.401.114-.53.118-.117.26-.304.39-.456.13-.152.173-.26.26-.434.087-.173.044-.325-.022-.456-.065-.13-.586-1.41-.803-1.93-.212-.511-.444-.442-.607-.45l-.52-.01c-.173 0-.455.065-.693.304-.24.238-.91.889-.91 2.168 0 1.278.93 2.515 1.06 2.689.13.173 1.83 2.796 4.433 3.916.619.267 1.1.427 1.477.546.621.198 1.186.17 1.633.103.498-.076 1.543-.63 1.761-1.238.218-.607.218-1.127.152-1.237-.066-.11-.24-.173-.5-.304z"/>
+        </svg>
+        <span class="whatsapp-tooltip">Chat With Us</span>
+    </a>
+</body></html>
+</body></html>
