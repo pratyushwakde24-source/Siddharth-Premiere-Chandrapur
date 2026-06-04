@@ -435,13 +435,13 @@ section.hero-sec {
 
 @media (min-width: 1025px) {
     section.hero-sec {
-        max-height: 85vh;
+        max-height: 60vh;
     }
 }
 
 @media (max-width: 1024px) and (min-width: 769px) {
     section.hero-sec {
-        max-height: 85vh;
+        max-height: 60vh;
     }
 }
 
@@ -2914,6 +2914,14 @@ section.rooms-sec {
     }
 }
 
+.mid-cta-sec {
+    padding: 60px var(--margin-mobile);
+    background-color: var(--bg-dark);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
 /* Redesigned Premium Inline WhatsApp Button and Container Group */
 .booking-button-group {
     display: flex;
@@ -2999,7 +3007,7 @@ section.rooms-sec {
 @media (max-width: 768px) {
     .booking-button-group {
         flex-direction: column !important;
-        gap: 16px !important;
+        gap: 20px !important;
         padding: 0 20px !important;
     }
     
