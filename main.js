@@ -1591,4 +1591,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     );
+
+    // FAQ Accordion click toggle logic
+    document.querySelectorAll('.faq-trigger').forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const item = trigger.closest('.faq-item');
+            const isActive = item.classList.contains('active');
+            
+            // Close other items
+            document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+            
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
 });
