@@ -1732,6 +1732,14 @@ footer.premium-footer {
     position: relative;
     transform: translateY(30px);
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow-y: auto; /* Enable scrolling inside modal when content exceeds */
+    max-height: 90vh; /* Ensure modal does not exceed viewport height */
+}
+
+/* Prevent background scrolling when modal is open */
+body.modal-open {
+    overflow: hidden;
+    height: 100%;
 }
 
 .inquiry-modal-overlay.open .inquiry-modal-card {

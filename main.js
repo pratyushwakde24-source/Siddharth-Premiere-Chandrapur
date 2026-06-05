@@ -869,11 +869,13 @@ function createInquiryModal() {
             form.querySelector('#booking-room').value = preselectedRoom;
         }
         modal.classList.add('open');
+        document.body.classList.add('modal-open'); // prevent background scroll
         if (typeof lenis !== 'undefined') lenis.stop();
     };
     
     window.closeInquiryModal = () => {
         modal.classList.remove('open');
+        document.body.classList.remove('modal-open'); // restore background scroll
         if (typeof lenis !== 'undefined') lenis.start();
     };
     
