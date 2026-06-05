@@ -234,7 +234,9 @@
             </ul>
         </nav>
         <div class="header-action">
-            <button class="icon-btn" aria-label="Account"><span class="material-symbols-outlined">account_circle</span></button>
+            <button class="icon-btn" id="account-btn" aria-label="User Menu" data-icon="account_circle" style="background: none; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none;">
+                <span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform">account_circle</span>
+            </button>
             <button class="icon-btn mobile-menu-toggle" aria-label="Menu"><span class="material-symbols-outlined">menu</span></button>
         </div>
     </header>
@@ -1117,26 +1119,6 @@
             </div>
         </section>
 
-        <!-- SECTION: FINAL CTA -->
-        <section id="cta" class="cta-sec">
-            <div class="cta-bg">
-                <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80" alt="Luxury Hotel pool and lounge at Hotel Siddharth Premiere" loading="lazy">
-            </div>
-            
-            <!-- Mouse Follow Light sweep -->
-            <div class="cta-glow-overlay" id="cta-glow"></div>
-            
-            <div class="cta-content" id="cta-content-wrap">
-                <h2 class="font-display-lg">Reserve Your Luxury Stay Today</h2>
-                <p class="font-body-lg">
-                    Experience the perfect blend of premium comfort, high-end dining, and unmatched hospitality in Chandrapur. Your memorable stay begins here.
-                </p>
-                <div class="cta-btns booking-button-group">
-                    <button class="inquire-trigger btn-primary sweep-shine" id="inquire-btn" style="border: none;">Book Your Stay</button>
-                    <a href="#rooms" class="btn-ghost">Explore Rooms</a>
-                </div>
-            </div>
-        </section>
 
         <!-- SECTION: FOOTER -->
         <footer class="premium-footer">
@@ -1148,13 +1130,26 @@
             <div class="footer-container">
                 <div class="footer-logo">HOTEL SIDDHARTH PREMIERE</div>
                 
-                <div class="footer-contact-info" style="text-align: center; max-width: 600px; display: flex; flex-direction: column; gap: 12px; font-weight: 300;">
-                    <p style="color: var(--on-surface-variant); font-size: 0.9375rem; letter-spacing: 0.05em;"><span class="material-symbols-outlined" style="font-size: 18px; color: var(--primary); vertical-align: middle; margin-right: 8px;">location_on</span>Mul Road, Near Railway Overbridge, Chandrapur, Maharashtra - 442401</p>
-                    <p style="color: var(--on-surface-variant); font-size: 0.9375rem; letter-spacing: 0.05em;">
-                        <span class="material-symbols-outlined" style="font-size: 18px; color: var(--primary); vertical-align: middle; margin-right: 8px;">call</span>+91 7172 255101 / +91 94221 82345
-                        <span style="margin: 0 16px; color: rgba(242, 202, 80, 0.3);">|</span>
-                        <span class="material-symbols-outlined" style="font-size: 18px; color: var(--primary); vertical-align: middle; margin-right: 8px;">mail</span>stay@hotelsiddharthpremiere.com
-                    </p>
+                <div class="footer-contact-info" style="text-align: center; max-width: 600px; display: flex; flex-direction: column; gap: 16px; font-weight: 300; width: 100%;">
+                    <!-- Row 1: Address -->
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; color: var(--on-surface-variant); font-size: 0.9375rem; letter-spacing: 0.05em; width: 100%;">
+                        <span class="material-symbols-outlined" style="font-size: 18px; color: var(--primary); flex-shrink: 0;">location_on</span>
+                        <span>Mul Road, Near Railway Overbridge, Chandrapur, Maharashtra - 442401</span>
+                    </div>
+                    <!-- Row 2: Phone -->
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; color: var(--on-surface-variant); font-size: 0.9375rem; letter-spacing: 0.05em; width: 100%;">
+                        <span class="material-symbols-outlined" style="font-size: 18px; color: var(--primary); flex-shrink: 0;">call</span>
+                        <span style="display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center;">
+                            <a href="tel:+917172255101" style="color: inherit; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='inherit'">+91 7172 255101</a>
+                            <span style="color: rgba(242, 202, 80, 0.3); margin: 0 4px;">|</span>
+                            <a href="tel:+919422182345" style="color: inherit; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='inherit'">+91 94221 82345</a>
+                        </span>
+                    </div>
+                    <!-- Row 3: Email -->
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; color: var(--on-surface-variant); font-size: 0.9375rem; letter-spacing: 0.05em; width: 100%;">
+                        <span class="material-symbols-outlined" style="font-size: 18px; color: var(--primary); flex-shrink: 0;">mail</span>
+                        <a href="mailto:stay@hotelsiddharthpremiere.com" style="color: inherit; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='inherit'">stay@hotelsiddharthpremiere.com</a>
+                    </div>
                 </div>
 
                 <ul class="footer-links">

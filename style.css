@@ -423,25 +423,28 @@ header.floating-header:hover {
 section.hero-sec {
     position: relative;
     width: 100%;
-    height: auto;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     overflow: hidden;
     background-color: #0a0a0a; /* Premium solid black background */
     background: radial-gradient(circle at center, rgba(242, 202, 80, 0.08) 0%, #0a0a0a 75%); /* Soft radial gold glow */
+    padding-bottom: 120px; /* Enforces at least 120px space at the bottom */
 }
 
 @media (min-width: 1025px) {
     section.hero-sec {
-        max-height: 60vh;
+        min-height: 100vh;
+        max-height: none;
     }
 }
 
-@media (max-width: 1024px) and (min-width: 769px) {
+@media (min-width: 1440px) {
     section.hero-sec {
-        max-height: 60vh;
+        min-height: 110vh;
+        max-height: none;
     }
 }
 
@@ -465,6 +468,7 @@ section.hero-sec {
     text-align: center;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     gap: 24px;
 }
@@ -476,6 +480,7 @@ section.hero-sec {
 .hero-title {
     opacity: 0;
     transform: translateY(60px);
+    margin-bottom: 40px;
 }
 
 .hero-desc {
@@ -483,6 +488,11 @@ section.hero-sec {
     transform: translateY(30px);
     max-width: 600px;
     color: var(--on-surface-variant);
+    margin-bottom: 60px;
+}
+
+.hero-subtitle {
+    margin-bottom: 60px;
 }
 
 .hero-btns {
@@ -496,10 +506,10 @@ section.hero-sec {
 
 /* Scroll indicator — luxury, pinned bottom-center, never overlaps content */
 .scroll-indicator {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    transform: none;
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -509,8 +519,6 @@ section.hero-sec {
     pointer-events: none;
     white-space: nowrap;
     animation: scrollIndicatorFloat 2s ease-in-out infinite alternate;
-    margin-top: 24px; /* below buttons to scroll indicator: 20px-30px */
-    margin-bottom: 70px; /* below scroll indicator to next section: 60px-80px */
 }
 
 /* "SCROLL DOWN" label */
@@ -561,8 +569,10 @@ section.hero-sec {
 
 
 /* SECTION 2: ABOUT & TIMELINE */
-section.about-sec {
+.about-section, section.about-sec {
+    margin-top: 0 !important;
     position: relative;
+    z-index: 1;
     width: 100%;
     padding: 0 0 var(--section-padding) 0;
     background-color: var(--bg-dark);
@@ -3196,8 +3206,9 @@ section.rooms-sec {
     }
     
     .scroll-indicator {
-        margin-top: 24px !important;
-        margin-bottom: 32px !important;
+        margin: 0 !important;
+        position: absolute !important;
+        bottom: 32px !important;
     }
 }
 

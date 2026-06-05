@@ -146,8 +146,8 @@ animateParticles();
 // -------------------------------------------------------------
 // HERO ENTRANCE SEQUENCING
 // -------------------------------------------------------------
-window.addEventListener('DOMContentLoaded', () => {
-    // Force scroll position to 0 on DOMContentLoaded
+function initHeroEntrance() {
+    // Force scroll position to 0
     window.scrollTo(0, 0);
     if (typeof lenis !== 'undefined') {
         lenis.scrollTo(0, { immediate: true });
@@ -168,18 +168,30 @@ window.addEventListener('DOMContentLoaded', () => {
         y: 0,
         duration: 1.2,
         ease: 'power3.out'
-    }, '-=1.0')
-    .to('.hero-btns', {
-        opacity: 1,
-        y: 0,
-        duration: 1.0,
-        ease: 'power3.out'
-    }, '-=0.9')
-    .to('.scroll-indicator', {
+    }, '-=1.0');
+    
+    // Check if .hero-btns exists before animating
+    const hasHeroBtns = document.querySelector('.hero-btns');
+    if (hasHeroBtns) {
+        heroTl.to('.hero-btns', {
+            opacity: 1,
+            y: 0,
+            duration: 1.0,
+            ease: 'power3.out'
+        }, '-=0.9');
+    }
+    
+    heroTl.to('.scroll-indicator', {
         opacity: 1,
         duration: 0.8
-    }, '-=0.5');
-});
+    }, hasHeroBtns ? '-=0.5' : '-=0.9');
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroEntrance);
+} else {
+    initHeroEntrance();
+}
 
 window.addEventListener('load', () => {
     // Additional reset on complete window load
@@ -660,30 +672,32 @@ const ctaSection = document.getElementById('cta');
 const ctaGlow = document.getElementById('cta-glow');
 const ctaContent = document.getElementById('cta-content-wrap');
 
-ctaSection.addEventListener('mousemove', (e) => {
-    const rect = ctaSection.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    // Set CSS properties dynamically
-    ctaGlow.style.setProperty('--mouse-x', `${x}px`);
-    ctaGlow.style.setProperty('--mouse-y', `${y}px`);
-});
+if (ctaSection && ctaGlow && ctaContent) {
+    ctaSection.addEventListener('mousemove', (e) => {
+        const rect = ctaSection.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        // Set CSS properties dynamically
+        ctaGlow.style.setProperty('--mouse-x', `${x}px`);
+        ctaGlow.style.setProperty('--mouse-y', `${y}px`);
+    });
 
-gsap.fromTo(ctaContent,
-    { opacity: 0, y: 50 },
-    {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-            trigger: ctaSection,
-            start: 'top 70%',
-            toggleActions: 'play none none reverse'
+    gsap.fromTo(ctaContent,
+        { opacity: 0, y: 50 },
+        {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: ctaSection,
+                start: 'top 70%',
+                toggleActions: 'play none none reverse'
+            }
         }
-    }
-);
+    );
+}
 
 // -------------------------------------------------------------
 // SECTION 8: FOOTER CANVAS WAVE ANIMATION
@@ -889,6 +903,104 @@ function createInquiryModal() {
             </div>
         `;
     });
+}
+
+// -------------------------------------------------------------
+// GUEST PORTAL / ACCOUNT MODAL CREATION AND LOGIC
+// -------------------------------------------------------------
+function createAccountModal() {
+    if (document.getElementById('account-modal')) return;
+
+    const modalHtml = `
+        <div class="inquiry-modal-overlay" id="account-modal" role="dialog" aria-modal="true" aria-label="User Menu">
+            <div class="inquiry-modal-card glass-card lustre-border" style="border-radius: 0; max-width: 450px; text-align: center; padding: 40px;">
+                <button class="inquiry-modal-close account-modal-close" aria-label="Close User Menu">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+                <span class="material-symbols-outlined" style="font-size: 48px; color: var(--primary); margin-bottom: 16px;">account_circle</span>
+                <h3 class="font-display-lg" style="color: var(--primary); font-size: 1.75rem; margin-bottom: 8px; font-style: italic;">Guest Services</h3>
+                <p class="font-body-md" style="color: var(--text-muted); margin-bottom: 32px; font-size: 0.9rem;">Connect with our concierge or book your luxury experience.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 16px; width: 100%;">
+                    <button id="modal-book-room" class="btn-primary sweep-shine" style="width: 100%; border: none; height: 56px; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;">Book a Room</button>
+                    <a href="https://wa.me/918412800000?text=Hello%20Hotel%20Siddharth%20Premiere,%20I%20would%20like%20to%20enquire%20about%20booking%20a%20room." target="_blank" rel="noopener noreferrer" class="sweep-shine" style="width: 100%; height: 56px; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #fff; background-color: #25D366; border: none; font-family: var(--font-body); cursor: pointer; transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor; margin-right: 8px;"><path d="M12.012 2c-5.506 0-9.988 4.482-9.988 9.988 0 1.761.459 3.477 1.332 4.992L2 22l5.163-1.355a9.923 9.923 0 0 0 4.849 1.266c5.506 0 9.987-4.481 9.987-9.988s-4.481-9.935-9.987-9.935zm0 18.232c-1.579 0-3.122-.424-4.475-1.226l-.32-.19-3.327.873.889-3.245-.208-.33c-.878-1.398-1.343-3.023-1.343-4.708 0-4.786 3.893-8.679 8.679-8.679 4.787 0 8.68 3.893 8.68 8.679 0 4.786-3.893 8.68-8.68 8.68zm4.761-6.505c-.26-.13-1.543-.762-1.782-.849-.24-.087-.413-.13-.586.13-.173.26-.671.849-.822 1.022-.152.173-.304.195-.565.065-.26-.13-1.101-.406-2.098-1.296-.776-.693-1.3-1.55-1.452-1.81-.152-.26-.016-.401.114-.53.118-.117.26-.304.39-.456.13-.152.173-.26.26-.434.087-.173.044-.325-.022-.456-.065-.13-.586-1.41-.803-1.93-.212-.511-.444-.442-.607-.45l-.52-.01c-.173 0-.455.065-.693.304-.24.238-.91.889-.91 2.168 0 1.278.93 2.515 1.06 2.689.13.173 1.83 2.796 4.433 3.916.619.267 1.1.427 1.477.546.621.198 1.186.17 1.633.103.498-.076 1.543-.63 1.761-1.238.218-.607.218-1.127.152-1.237-.066-.11-.24-.173-.5-.304z"/></svg>
+                        WhatsApp Booking
+                    </a>
+                    <a href="tel:+917172255101" class="btn-ghost" style="width: 100%; height: 56px; font-size: 0.8rem; text-decoration: none; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.15);">
+                        <span class="material-symbols-outlined" style="margin-right: 8px; font-size: 20px;">call</span>
+                        Call Hotel
+                    </a>
+                    <a href="mailto:stay@hotelsiddharthpremiere.com" class="btn-ghost" style="width: 100%; height: 56px; font-size: 0.8rem; text-decoration: none; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.15);">
+                        <span class="material-symbols-outlined" style="margin-right: 8px; font-size: 20px;">mail</span>
+                        Email Hotel
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Siddharth+Premiere+Chandrapur" target="_blank" rel="noopener noreferrer" class="btn-ghost" style="width: 100%; height: 56px; font-size: 0.8rem; text-decoration: none; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.15);">
+                        <span class="material-symbols-outlined" style="margin-right: 8px; font-size: 20px;">directions</span>
+                        Get Directions
+                    </a>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+    const modal = document.getElementById('account-modal');
+    const card = modal.querySelector('.inquiry-modal-card');
+    const closeBtn = modal.querySelector('.account-modal-close');
+    const bookRoomBtn = modal.querySelector('#modal-book-room');
+
+    window.openAccountModal = () => {
+        modal.classList.add('open');
+        if (typeof lenis !== 'undefined') lenis.stop();
+
+        // GSAP animate account modal entry
+        gsap.killTweensOf(modal);
+        gsap.fromTo(modal, 
+            { opacity: 0 }, 
+            { opacity: 1, duration: 0.4, ease: 'power2.out' }
+        );
+        
+        gsap.killTweensOf(card);
+        gsap.fromTo(card,
+            { scale: 0.95, opacity: 0 },
+            { scale: 1.0, opacity: 1, duration: 0.5, ease: 'power2.out', delay: 0.1 }
+        );
+    };
+
+    window.closeAccountModal = () => {
+        gsap.killTweensOf(modal);
+        gsap.to(modal, {
+            opacity: 0,
+            duration: 0.3,
+            ease: 'power2.in',
+            onComplete: () => {
+                modal.classList.remove('open');
+            }
+        });
+        if (typeof lenis !== 'undefined') lenis.start();
+    };
+
+    closeBtn.addEventListener('click', window.closeAccountModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) window.closeAccountModal();
+    });
+
+    window.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('open')) return;
+        if (e.key === 'Escape') window.closeAccountModal();
+    });
+
+    if (bookRoomBtn) {
+        bookRoomBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.closeAccountModal();
+            setTimeout(() => {
+                if (window.openInquiryModal) window.openInquiryModal('');
+            }, 300);
+        });
+    }
 }
 
 // -------------------------------------------------------------
@@ -1331,9 +1443,19 @@ window.openLightbox = (room, index) => {
 };
 
 // Initialize Modal and Hook Buttons
-document.addEventListener('DOMContentLoaded', () => {
+function initAll() {
     createInquiryModal();
+    createAccountModal();
     lightbox.init();
+    
+    // Bind account trigger
+    const accBtn = document.getElementById('account-btn');
+    if (accBtn) {
+        accBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (window.openAccountModal) window.openAccountModal();
+        });
+    }
     
     // Instantiate all sliders
     document.querySelectorAll('.room-main-slider').forEach(sliderEl => {
@@ -1616,4 +1738,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAll);
+} else {
+    initAll();
+}

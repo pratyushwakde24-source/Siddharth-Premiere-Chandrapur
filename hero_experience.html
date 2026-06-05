@@ -379,7 +379,9 @@
 <a class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors duration-500" href="/#location">Location</a>
 </nav>
 <div class="flex items-center">
-<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform" data-icon="account_circle">account_circle</span>
+<button id="account-btn" aria-label="User Menu" data-icon="account_circle" class="cursor-pointer active:scale-95 transition-transform flex items-center justify-center outline-none" style="background: none; border: none;">
+<span class="material-symbols-outlined text-primary text-2xl">account_circle</span>
+</button>
 </div>
 </header>
 <main class="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden">
@@ -402,14 +404,6 @@
 <p class="max-w-2xl mx-auto font-body-lg text-body-lg text-on-surface/60 mb-12 opacity-0 animate-[fadeIn_1s_ease-out_0.5s_forwards]">
                 Premium Rooms • Fine Dining • Banquet Facilities • Exceptional Hospitality
             </p>
-<div class="booking-button-group opacity-0 animate-[fadeIn_1s_ease-out_1s_forwards]">
-<button class="inquire-trigger shimmer-button btn-primary w-full md:w-auto px-12 py-5 bg-primary text-on-primary font-label-sm text-label-sm uppercase tracking-widest transition-all duration-300">
-                    Book Your Stay
-                </button>
-<a href="/#services" class="btn-ghost w-full md:w-auto px-12 py-5 border border-primary/40 bg-white/5 backdrop-blur-md text-primary font-label-sm text-label-sm uppercase tracking-widest hover:bg-primary/10 transition-all duration-300 text-center inline-block">
-                    Explore Rooms
-                </a>
-</div>
 </div>
 </main>
 <!-- Content Sections Spacer -->
@@ -435,18 +429,26 @@
             <div class="font-headline-lg text-headline-lg text-primary tracking-tighter italic">HOTEL SIDDHARTH PREMIERE
             </div>
 
-            <div class="text-center max-w-[600px] flex flex-col gap-3 font-light text-on-surface-variant">
-                <p class="text-sm tracking-wide"><span
-                        class="material-symbols-outlined text-primary text-lg align-middle mr-2"
-                        data-icon="location_on">location_on</span>Mul Road, Near Railway Overbridge, Chandrapur,
-                    Maharashtra - 442401</p>
-                <p class="text-sm tracking-wide">
-                    <span class="material-symbols-outlined text-primary text-lg align-middle mr-2"
-                        data-icon="call">call</span>+91 7172 255101 / +91 94221 82345
-                    <span class="mx-3 text-primary/30">|</span>
-                    <span class="material-symbols-outlined text-primary text-lg align-middle mr-2"
-                        data-icon="mail">mail</span>stay@hotelsiddharthpremiere.com
-                </p>
+            <div class="text-center max-w-[600px] w-full flex flex-col gap-4 font-light text-on-surface-variant">
+                <!-- Row 1: Address -->
+                <div class="flex items-center justify-center gap-3 text-sm tracking-wide">
+                    <span class="material-symbols-outlined text-primary text-[18px] flex-shrink-0" data-icon="location_on">location_on</span>
+                    <span>Mul Road, Near Railway Overbridge, Chandrapur, Maharashtra - 442401</span>
+                </div>
+                <!-- Row 2: Phone -->
+                <div class="flex items-center justify-center gap-3 text-sm tracking-wide">
+                    <span class="material-symbols-outlined text-primary text-[18px] flex-shrink-0" data-icon="call">call</span>
+                    <span class="inline-flex items-center gap-2 flex-wrap justify-center">
+                        <a href="tel:+917172255101" class="hover:text-primary transition-colors duration-300">+91 7172 255101</a>
+                        <span class="text-primary/30 px-1">|</span>
+                        <a href="tel:+919422182345" class="hover:text-primary transition-colors duration-300">+91 94221 82345</a>
+                    </span>
+                </div>
+                <!-- Row 3: Email -->
+                <div class="flex items-center justify-center gap-3 text-sm tracking-wide">
+                    <span class="material-symbols-outlined text-primary text-[18px] flex-shrink-0" data-icon="mail">mail</span>
+                    <a href="mailto:stay@hotelsiddharthpremiere.com" class="hover:text-primary transition-colors duration-300">stay@hotelsiddharthpremiere.com</a>
+                </div>
             </div>
 
             <div class="flex flex-wrap justify-center gap-x-12 gap-y-6">
@@ -696,6 +698,8 @@
         }
 
         createInquiryModal();
+        createMobileDrawer();
+        createAccountModal();
         
         const inquiryTriggers = document.querySelectorAll('.inquire-trigger');
         inquiryTriggers.forEach(btn => {
@@ -710,6 +714,136 @@
                 window.openInquiryModal(room);
             });
         });
+
+        const accountBtn = document.querySelector('[data-icon="account_circle"]');
+        if (accountBtn) {
+            accountBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (window.openAccountModal) window.openAccountModal();
+            });
+        }
+
+        const headerAccountCircle = document.querySelector('header .material-symbols-outlined:first-of-type');
+        if (headerAccountCircle && headerAccountCircle.textContent === 'account_circle') {
+            headerAccountCircle.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (window.openAccountModal) window.openAccountModal();
+            });
+        }
+
+        function createMobileDrawer() {
+            if (document.getElementById('mobile-drawer')) return;
+            const drawerHtml = `
+                <div id="mobile-drawer" class="fixed inset-y-0 right-0 z-[200] w-[300px] bg-[#0e0e0e]/95 border-l border-[#f2ca50]/20 backdrop-blur-xl p-8 flex flex-col gap-10 translate-x-full transition-transform duration-300">
+                    <button id="close-drawer" class="absolute top-6 right-6 text-[#f2ca50] hover:scale-110 transition-transform" aria-label="Close Menu">
+                        <span class="material-symbols-outlined text-[28px]">close</span>
+                    </button>
+                    <ul class="flex flex-col gap-6 mt-16 text-xs font-bold uppercase tracking-[0.15em] text-[#e5e2e1]/70">
+                        <li><a class="hover:text-[#f2ca50] transition-colors" href="/#hero">Home</a></li>
+                        <li><a class="hover:text-[#f2ca50] transition-colors" href="/#about">Hotel</a></li>
+                        <li><a class="hover:text-[#f2ca50] transition-colors" href="/#services">Rooms</a></li>
+                        <li><a class="hover:text-[#f2ca50] transition-colors" href="/#dining">Dining</a></li>
+                        <li><a class="hover:text-[#f2ca50] transition-colors" href="/#events">Banquets</a></li>
+                        <li><a class="hover:text-[#f2ca50] transition-colors" href="/#portfolio">Gallery</a></li>
+                        <li><a class="hover:text-[#f2ca50] transition-colors" href="/#location">Location</a></li>
+                    </ul>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', drawerHtml);
+            
+            const menuToggle = document.querySelector('[data-icon="menu"]') || document.querySelector('header .material-symbols-outlined:nth-of-type(2)');
+            const drawer = document.getElementById('mobile-drawer');
+            const closeBtn = document.getElementById('close-drawer');
+            
+            if (menuToggle && drawer && closeBtn) {
+                menuToggle.addEventListener('click', () => {
+                    drawer.classList.remove('translate-x-full');
+                });
+                closeBtn.addEventListener('click', () => {
+                    drawer.classList.add('translate-x-full');
+                });
+                drawer.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        drawer.classList.add('translate-x-full');
+                    });
+                });
+            }
+        }
+
+        function createAccountModal() {
+            if (document.getElementById('account-modal')) return;
+
+            const modalHtml = `
+                <div class="fixed inset-0 z-[9999] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 bg-black/85 backdrop-blur-md" id="account-modal" role="dialog" aria-modal="true" aria-label="User Menu">
+                    <div class="w-[90%] max-w-[450px] bg-[#0e0e0e]/95 border border-[#f2ca50]/30 p-10 relative transform translate-y-8 transition-transform duration-300 rounded-none shadow-2xl text-center" id="account-modal-card">
+                        <button class="absolute top-6 right-6 text-[#f2ca50] hover:scale-110 transition-transform" id="account-modal-close" aria-label="Close User Menu">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                        <span class="material-symbols-outlined text-[#f2ca50] text-5xl mb-4 block">account_circle</span>
+                        <h3 class="font-headline-md text-2xl text-[#f2ca50] mb-2 font-medium italic">Guest Services</h3>
+                        <p class="font-body-md text-sm text-[#e5e2e1]/60 mb-8 font-light">Connect with our concierge or book your luxury experience.</p>
+                        
+                        <div class="flex flex-col gap-4 w-full">
+                            <button id="modal-book-room" class="w-full py-4 bg-[#f2ca50] text-black font-bold uppercase tracking-widest text-xs hover:bg-[#ffe088] transition-all">Book a Room</button>
+                            <a href="https://wa.me/918412800000?text=Hello%20Hotel%20Siddharth%20Premiere,%20I%20would%20like%20to%20enquire%20about%20booking%20a%20room." target="_blank" rel="noopener noreferrer" class="w-full py-4 text-white font-bold uppercase tracking-widest text-xs bg-[#25D366] hover:bg-[#20ba56] transition-all flex items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M12.012 2c-5.506 0-9.988 4.482-9.988 9.988 0 1.761.459 3.477 1.332 4.992L2 22l5.163-1.355a9.923 9.923 0 0 0 4.849 1.266c5.506 0 9.987-4.481 9.987-9.988s-4.481-9.935-9.987-9.935zm0 18.232c-1.579 0-3.122-.424-4.475-1.226l-.32-.19-3.327.873.889-3.245-.208-.33c-.878-1.398-1.343-3.023-1.343-4.708 0-4.786 3.893-8.679 8.679-8.679 4.787 0 8.68 3.893 8.68 8.679 0 4.786-3.893 8.68-8.68 8.68zm4.761-6.505c-.26-.13-1.543-.762-1.782-.849-.24-.087-.413-.13-.586.13-.173.26-.671.849-.822 1.022-.152.173-.304.195-.565.065-.26-.13-1.101-.406-2.098-1.296-.776-.693-1.3-1.55-1.452-1.81-.152-.26-.016-.401.114-.53.118-.117.26-.304.39-.456.13-.152.173-.26.26-.434.087-.173.044-.325-.022-.456-.065-.13-.586-1.41-.803-1.93-.212-.511-.444-.442-.607-.45l-.52-.01c-.173 0-.455.065-.693.304-.24.238-.91.889-.91 2.168 0 1.278.93 2.515 1.06 2.689.13.173 1.83 2.796 4.433 3.916.619.267 1.1.427 1.477.546.621.198 1.186.17 1.633.103.498-.076 1.543-.63 1.761-1.238.218-.607.218-1.127.152-1.237-.066-.11-.24-.173-.5-.304z"/></svg>
+                                WhatsApp Booking
+                            </a>
+                            <a href="tel:+917172255101" class="w-full py-4 text-[#f2ca50] font-bold uppercase tracking-widest text-xs border border-[#f2ca50]/30 hover:bg-[#f2ca50]/5 transition-all flex items-center justify-center gap-2">
+                                <span class="material-symbols-outlined text-base">call</span>
+                                Call Hotel
+                            </a>
+                            <a href="mailto:stay@hotelsiddharthpremiere.com" class="w-full py-4 text-[#e5e2e1] font-bold uppercase tracking-widest text-xs border border-[#e5e2e1]/15 hover:bg-white/5 transition-all flex items-center justify-center gap-2">
+                                <span class="material-symbols-outlined text-base">mail</span>
+                                Email Hotel
+                            </a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Siddharth+Premiere+Chandrapur" target="_blank" rel="noopener noreferrer" class="w-full py-4 text-[#e5e2e1] font-bold uppercase tracking-widest text-xs border border-[#e5e2e1]/15 hover:bg-white/5 transition-all flex items-center justify-center gap-2">
+                                <span class="material-symbols-outlined text-base">directions</span>
+                                Get Directions
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+            const modal = document.getElementById('account-modal');
+            const card = document.getElementById('account-modal-card');
+            const closeBtn = document.getElementById('account-modal-close');
+            const bookRoomBtn = modal.querySelector('#modal-book-room');
+
+            window.openAccountModal = () => {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                card.classList.remove('translate-y-8');
+            };
+
+            window.closeAccountModal = () => {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                card.classList.add('translate-y-8');
+            };
+
+            closeBtn.addEventListener('click', window.closeAccountModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) window.closeAccountModal();
+            });
+
+            window.addEventListener('keydown', (e) => {
+                if (!modal.classList.contains('opacity-0') && e.key === 'Escape') {
+                    window.closeAccountModal();
+                }
+            });
+
+            if (bookRoomBtn) {
+                bookRoomBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.closeAccountModal();
+                    setTimeout(() => {
+                        if (window.openInquiryModal) window.openInquiryModal();
+                    }, 300);
+                });
+            }
+        }
     </script>
 <style>
         @keyframes fadeIn {
