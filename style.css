@@ -3005,6 +3005,10 @@ section.rooms-sec {
 
 /* Mobile responsive layout */
 @media (max-width: 768px) {
+    .mid-cta-sec {
+        display: none !important;
+    }
+    
     .booking-button-group {
         flex-direction: column !important;
         gap: 20px !important;
