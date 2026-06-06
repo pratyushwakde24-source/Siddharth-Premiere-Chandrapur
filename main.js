@@ -755,88 +755,93 @@ topBtn.addEventListener('click', () => {
 // -------------------------------------------------------------
 // INQUIRY MODAL CREATION AND LOGIC
 // -------------------------------------------------------------
-function createInquiryModal() {
-    if (document.getElementById('inquiry-modal')) return;
+// -------------------------------------------------------------
+// ROOM BOOKING MODAL CREATION AND LOGIC
+// -------------------------------------------------------------
+function createRoomBookingModal() {
+    if (document.getElementById('room-booking-modal')) return;
     
     const modalHtml = `
-        <div class="inquiry-modal-overlay" id="inquiry-modal">
-            <div class="inquiry-modal-card glass-card lustre-border" style="border-radius: 0; max-height: 90vh; overflow-y: auto;">
-                <button class="inquiry-modal-close" aria-label="Close Modal">
+        <div class="inquiry-modal-overlay" id="room-booking-modal" data-lenis-prevent>
+            <div class="inquiry-modal-card glass-card lustre-border" style="border-radius: 0;">
+                <button class="inquiry-modal-close" id="room-booking-close" aria-label="Close Modal">
                     <span class="material-symbols-outlined">close</span>
                 </button>
-                <h3 class="font-headline-lg" style="color: var(--primary); margin-bottom: 8px;">Book Your Stay</h3>
-                <p class="font-body-md" style="color: var(--text-muted); margin-bottom: 32px;">Reserve your luxury experience at Hotel Siddharth Premiere, Chandrapur.</p>
-                <form class="inquiry-form" id="inquiry-form">
-                    <div class="input-group">
-                        <span class="input-label">Full Name</span>
-                        <input type="text" id="booking-name" class="input-field" required>
-                        <div class="input-underline"></div>
-                    </div>
-                    
-                    <div class="input-group">
-                        <span class="input-label">Mobile Number</span>
-                        <input type="tel" id="booking-phone" class="input-field" required pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number">
-                        <div class="input-underline"></div>
-                    </div>
-                    
-                    <div class="input-group">
-                        <span class="input-label">Email Address</span>
-                        <input type="email" id="booking-email" class="input-field" required>
-                        <div class="input-underline"></div>
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                <div class="inquiry-modal-scroll-content">
+                    <h3 class="font-headline-lg" style="color: var(--primary); margin-bottom: 8px;">Book Your Stay</h3>
+                    <p class="font-body-md" style="color: var(--text-muted); margin-bottom: 32px;">Reserve your luxury experience at Hotel Siddharth Premiere, Chandrapur.</p>
+                    <form class="inquiry-form" id="room-booking-form">
                         <div class="input-group">
-                            <span class="input-label">Check-In</span>
-                            <input type="date" id="check-in-date" class="input-field" required style="color-scheme: dark;">
+                            <span class="input-label">Full Name</span>
+                            <input type="text" id="booking-name" class="input-field" required>
                             <div class="input-underline"></div>
-                        </div>
-                        <div class="input-group">
-                            <span class="input-label">Check-Out</span>
-                            <input type="date" id="check-out-date" class="input-field" required style="color-scheme: dark;">
-                            <div class="input-underline"></div>
-                        </div>
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-                        <div class="input-group" style="position: relative; margin-bottom: 32px;">
-                            <span class="input-label" style="position: absolute; top: -16px; left: 0; color: var(--primary); font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;">Room Type</span>
-                            <select id="booking-room" class="inquiry-select-field" required>
-                                <option value="" disabled selected>Select Room Class...</option>
-                                <option value="Executive Room">Executive Room</option>
-                                <option value="Suite Room">Suite Room</option>
-                                <option value="Premier Suite">Premier Suite</option>
-                            </select>
                         </div>
                         
-                        <div class="input-group" style="position: relative; margin-bottom: 32px;">
-                            <span class="input-label" style="position: absolute; top: -16px; left: 0; color: var(--primary); font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;">Guests</span>
-                            <select id="booking-guests" class="inquiry-select-field" required>
-                                <option value="1">1 Guest</option>
-                                <option value="2" selected>2 Guests</option>
-                                <option value="3">3 Guests</option>
-                                <option value="4+">4+ Guests</option>
-                            </select>
+                        <div class="input-group">
+                            <span class="input-label">Mobile Number</span>
+                            <input type="tel" id="booking-phone" class="input-field" required pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number">
+                            <div class="input-underline"></div>
                         </div>
-                    </div>
+                        
+                        <div class="input-group">
+                            <span class="input-label">Email Address</span>
+                            <input type="email" id="booking-email" class="input-field" required>
+                            <div class="input-underline"></div>
+                        </div>
 
-                    <div class="input-group">
-                        <span class="input-label">Special Requests</span>
-                        <textarea id="booking-message" class="input-field" rows="2" style="resize: none;"></textarea>
-                        <div class="input-underline"></div>
-                    </div>
-                    
-                    <button type="submit" class="btn-primary sweep-shine" style="width: 100%; border: none; margin-top: 16px;">Confirm Reservation</button>
-                </form>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                            <div class="input-group">
+                                <span class="input-label">Check-In</span>
+                                <input type="date" id="check-in-date" class="input-field" required style="color-scheme: dark;">
+                                <div class="input-underline"></div>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-label">Check-Out</span>
+                                <input type="date" id="check-out-date" class="input-field" required style="color-scheme: dark;">
+                                <div class="input-underline"></div>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                            <div class="input-group" style="position: relative; margin-bottom: 32px;">
+                                <span class="input-label" style="position: absolute; top: -16px; left: 0; color: var(--primary); font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;">Room Type</span>
+                                <select id="booking-room" class="inquiry-select-field" required>
+                                    <option value="" disabled selected>Select Room Class...</option>
+                                    <option value="Executive Room">Executive Room</option>
+                                    <option value="Suite Room">Suite Room</option>
+                                    <option value="Premier Suite">Premier Suite</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group" style="position: relative; margin-bottom: 32px;">
+                                <span class="input-label" style="position: absolute; top: -16px; left: 0; color: var(--primary); font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;">Guests</span>
+                                <select id="booking-guests" class="inquiry-select-field" required>
+                                    <option value="1">1 Guest</option>
+                                    <option value="2" selected>2 Guests</option>
+                                    <option value="3">3 Guests</option>
+                                    <option value="4+">4+ Guests</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-label">Special Requests</span>
+                            <textarea id="booking-message" class="input-field" rows="2" style="resize: none;"></textarea>
+                            <div class="input-underline"></div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary sweep-shine" style="width: 100%; border: none; margin-top: 16px;">Confirm Reservation</button>
+                    </form>
+                </div>
             </div>
         </div>
     `;
     
     document.body.insertAdjacentHTML('beforeend', modalHtml);
     
-    const modal = document.getElementById('inquiry-modal');
-    const closeBtn = modal.querySelector('.inquiry-modal-close');
-    const form = modal.querySelector('#inquiry-form');
+    const modal = document.getElementById('room-booking-modal');
+    const closeBtn = document.getElementById('room-booking-close');
+    const form = document.getElementById('room-booking-form');
     const card = modal.querySelector('.inquiry-modal-card');
     
     const checkInInput = form.querySelector('#check-in-date');
@@ -864,24 +869,28 @@ function createInquiryModal() {
         }
     });
 
-    window.openInquiryModal = (preselectedRoom) => {
+    window.openRoomBookingModal = (preselectedRoom) => {
         if (preselectedRoom && form.querySelector('#booking-room')) {
             form.querySelector('#booking-room').value = preselectedRoom;
         }
         modal.classList.add('open');
-        document.body.classList.add('modal-open'); // prevent background scroll
+        document.body.classList.add('modal-open');
+        document.body.style.overflow = "hidden";
+        const scrollContent = modal.querySelector('.inquiry-modal-scroll-content');
+        if (scrollContent) scrollContent.scrollTop = 0;
         if (typeof lenis !== 'undefined') lenis.stop();
     };
     
-    window.closeInquiryModal = () => {
+    window.closeRoomBookingModal = () => {
         modal.classList.remove('open');
-        document.body.classList.remove('modal-open'); // restore background scroll
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = "";
         if (typeof lenis !== 'undefined') lenis.start();
     };
     
-    closeBtn.addEventListener('click', window.closeInquiryModal);
+    closeBtn.addEventListener('click', window.closeRoomBookingModal);
     modal.addEventListener('click', (e) => {
-        if (e.target === modal) window.closeInquiryModal();
+        if (e.target === modal) window.closeRoomBookingModal();
     });
     
     form.addEventListener('submit', (e) => {
@@ -901,7 +910,331 @@ function createInquiryModal() {
                 <p class="font-body-md" style="color: var(--text-muted); margin-bottom: 32px;">
                     A summary of details has been sent to <strong>${userEmail}</strong> and your contact number <strong>${userPhone}</strong>. Our reservation manager will contact you within 2-4 hours to finalize your reservation.
                 </p>
-                <button class="btn-primary sweep-shine" onclick="window.closeInquiryModal()" style="width: 100%; border: none;">Close Window</button>
+                <button class="btn-primary sweep-shine" onclick="window.closeRoomBookingModal()" style="width: 100%; border: none;">Close Window</button>
+            </div>
+        `;
+    });
+
+    // Keep legacy mapped references for external safety
+    window.openInquiryModal = window.openRoomBookingModal;
+    window.closeInquiryModal = window.closeRoomBookingModal;
+}
+
+// -------------------------------------------------------------
+// BANQUET INQUIRY MODAL CREATION AND LOGIC
+// -------------------------------------------------------------
+function createBanquetInquiryModal() {
+    if (document.getElementById('banquet-inquiry-modal')) return;
+    
+    const modalHtml = `
+        <div class="inquiry-modal-overlay" id="banquet-inquiry-modal" data-lenis-prevent>
+            <div class="inquiry-modal-card glass-card lustre-border" style="border-radius: 0;">
+                <button class="inquiry-modal-close" id="banquet-inquiry-close" aria-label="Close Modal">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+                <div class="inquiry-modal-scroll-content">
+                    <h3 class="font-headline-lg" style="color: var(--primary); margin-bottom: 8px;">Plan Your Event</h3>
+                    <p class="font-body-md" style="color: var(--text-muted); margin-bottom: 32px;">Tell us about your event and our banquet team will contact you.</p>
+                    <form class="inquiry-form" id="banquet-inquiry-form">
+                        <div class="input-group">
+                            <span class="input-label">Full Name</span>
+                            <input type="text" id="banquet-inquiry-name" class="input-field" required>
+                            <div class="input-underline"></div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <span class="input-label">Mobile Number</span>
+                            <input type="tel" id="banquet-inquiry-phone" class="input-field" required pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number">
+                            <div class="input-underline"></div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <span class="input-label">Email Address</span>
+                            <input type="email" id="banquet-inquiry-email" class="input-field" required>
+                            <div class="input-underline"></div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                            <div class="input-group" style="position: relative; margin-bottom: 32px;">
+                                <span class="input-label" style="position: absolute; top: -16px; left: 0; color: var(--primary); font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;">Event Type</span>
+                                <select id="banquet-inquiry-event-type" class="inquiry-select-field" required>
+                                    <option value="" disabled selected>Select Event Type...</option>
+                                    <option value="Wedding">Wedding</option>
+                                    <option value="Birthday">Birthday</option>
+                                    <option value="Corporate Event">Corporate Event</option>
+                                    <option value="Engagement">Engagement</option>
+                                    <option value="Conference">Conference</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <span class="input-label">Event Date</span>
+                                <input type="date" id="banquet-inquiry-date" class="input-field" required style="color-scheme: dark;">
+                                <div class="input-underline"></div>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-label">Expected Guests</span>
+                            <input type="number" id="banquet-inquiry-guests" class="input-field" required min="1">
+                            <div class="input-underline"></div>
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-label">Special Requirements</span>
+                            <textarea id="banquet-inquiry-requirements" class="input-field" rows="2" style="resize: none;"></textarea>
+                            <div class="input-underline"></div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary sweep-shine" style="width: 100%; border: none; margin-top: 16px;">Submit Inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    
+    const modal = document.getElementById('banquet-inquiry-modal');
+    const closeBtn = document.getElementById('banquet-inquiry-close');
+    const form = document.getElementById('banquet-inquiry-form');
+    const card = modal.querySelector('.inquiry-modal-card');
+    
+    const dateInput = form.querySelector('#banquet-inquiry-date');
+    const todayStr = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', todayStr);
+    dateInput.value = todayStr;
+
+    window.openBanquetInquiryModal = () => {
+        modal.classList.add('open');
+        document.body.classList.add('modal-open');
+        document.body.style.overflow = "hidden";
+        const scrollContent = modal.querySelector('.inquiry-modal-scroll-content');
+        if (scrollContent) scrollContent.scrollTop = 0;
+        if (typeof lenis !== 'undefined') lenis.stop();
+    };
+    
+    window.closeBanquetInquiryModal = () => {
+        modal.classList.remove('open');
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = "";
+        if (typeof lenis !== 'undefined') lenis.start();
+    };
+    
+    closeBtn.addEventListener('click', window.closeBanquetInquiryModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) window.closeBanquetInquiryModal();
+    });
+    
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const userName = form.querySelector('#banquet-inquiry-name').value;
+        const userEmail = form.querySelector('#banquet-inquiry-email').value;
+        const userPhone = form.querySelector('#banquet-inquiry-phone').value;
+        const eventType = form.querySelector('#banquet-inquiry-event-type').value;
+        const eventDate = form.querySelector('#banquet-inquiry-date').value;
+        const guests = form.querySelector('#banquet-inquiry-guests').value;
+        const requirements = form.querySelector('#banquet-inquiry-requirements').value;
+
+        // WhatsApp redirect details
+        const waText = encodeURIComponent(
+            `Hello Hotel Siddharth Premiere, I would like to submit a Banquet Inquiry:\n\n` +
+            `*Name:* ${userName}\n` +
+            `*Phone:* ${userPhone}\n` +
+            `*Email:* ${userEmail}\n` +
+            `*Event Type:* ${eventType}\n` +
+            `*Date:* ${eventDate}\n` +
+            `*Guests:* ${guests}\n` +
+            `*Requirements:* ${requirements || 'None'}`
+        );
+        const waLink = `https://wa.me/918412800000?text=${waText}`;
+
+        // Admin Dashboard and Email notification (Future Ready & Logged)
+        console.log("Banquet Inquiry Submitted:", { userName, userEmail, userPhone, eventType, eventDate, guests, requirements });
+        
+        card.innerHTML = `
+            <div class="inquiry-success-container">
+                <span class="material-symbols-outlined inquiry-success-icon">check_circle</span>
+                <h3 class="font-headline-lg" style="color: var(--primary); margin-bottom: 16px;">Inquiry Submitted</h3>
+                <p class="font-body-lg" style="color: var(--on-surface); margin-bottom: 24px; font-weight: 300;">
+                    Thank you, <strong>${userName}</strong>! Your inquiry for a <strong>${eventType}</strong> has been sent to our banquet department.
+                </p>
+                <p class="font-body-md" style="color: var(--text-muted); margin-bottom: 32px;">
+                    We will review your request for <strong>${guests} guests</strong> on <strong>${eventDate}</strong> and contact you at <strong>${userPhone}</strong> shortly.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="btn-primary sweep-shine" style="width: 100%; border: none; text-decoration: none; display: flex; align-items: center; justify-content: center; background-color: #25D366; color: #fff;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: currentColor; margin-right: 8px;"><path d="M12.012 2c-5.506 0-9.988 4.482-9.988 9.988 0 1.761.459 3.477 1.332 4.992L2 22l5.163-1.355a9.923 9.923 0 0 0 4.849 1.266c5.506 0 9.987-4.481 9.987-9.988s-4.481-9.935-9.987-9.935zm0 18.232c-1.579 0-3.122-.424-4.475-1.226l-.32-.19-3.327.873.889-3.245-.208-.33c-.878-1.398-1.343-3.023-1.343-4.708 0-4.786 3.893-8.679 8.679-8.679 4.787 0 8.68 3.893 8.68 8.679 0 4.786-3.893 8.68-8.68 8.68zm4.761-6.505c-.26-.13-1.543-.762-1.782-.849-.24-.087-.413-.13-.586.13-.173.26-.671.849-.822 1.022-.152.173-.304.195-.565.065-.26-.13-1.101-.406-2.098-1.296-.776-.693-1.3-1.55-1.452-1.81-.152-.26-.016-.401.114-.53.118-.117.26-.304.39-.456.13-.152.173-.26.26-.434.087-.173.044-.325-.022-.456-.065-.13-.586-1.41-.803-1.93-.212-.511-.444-.442-.607-.45l-.52-.01c-.173 0-.455.065-.693.304-.24.238-.91.889-.91 2.168 0 1.278.93 2.515 1.06 2.689.13.173 1.83 2.796 4.433 3.916.619.267 1.1.427 1.477.546.621.198 1.186.17 1.633.103.498-.076 1.543-.63 1.761-1.238.218-.607.218-1.127.152-1.237-.066-.11-.24-.173-.5-.304z"/></svg>
+                        Send WhatsApp Message
+                    </a>
+                    <button class="btn-ghost" onclick="window.closeBanquetInquiryModal()" style="width: 100%;">Close Window</button>
+                </div>
+            </div>
+        `;
+    });
+}
+
+// -------------------------------------------------------------
+// BANQUET QUOTE MODAL CREATION AND LOGIC
+// -------------------------------------------------------------
+function createBanquetQuoteModal() {
+    if (document.getElementById('banquet-quote-modal')) return;
+    
+    const modalHtml = `
+        <div class="inquiry-modal-overlay" id="banquet-quote-modal" data-lenis-prevent>
+            <div class="inquiry-modal-card glass-card lustre-border" style="border-radius: 0;">
+                <button class="inquiry-modal-close" id="banquet-quote-close" aria-label="Close Modal">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+                <div class="inquiry-modal-scroll-content">
+                    <h3 class="font-headline-lg" style="color: var(--primary); margin-bottom: 8px;">Request Banquet Quote</h3>
+                    <p class="font-body-md" style="color: var(--text-muted); margin-bottom: 32px;">Get a custom quote for your banquet event at Hotel Siddharth Premiere.</p>
+                    <form class="inquiry-form" id="banquet-quote-form">
+                        <div class="input-group">
+                            <span class="input-label">Full Name</span>
+                            <input type="text" id="banquet-quote-name" class="input-field" required>
+                            <div class="input-underline"></div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <span class="input-label">Mobile Number</span>
+                            <input type="tel" id="banquet-quote-phone" class="input-field" required pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number">
+                            <div class="input-underline"></div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <span class="input-label">Email Address</span>
+                            <input type="email" id="banquet-quote-email" class="input-field" required>
+                            <div class="input-underline"></div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                            <div class="input-group" style="position: relative; margin-bottom: 32px;">
+                                <span class="input-label" style="position: absolute; top: -16px; left: 0; color: var(--primary); font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;">Event Type</span>
+                                <select id="banquet-quote-event-type" class="inquiry-select-field" required>
+                                    <option value="" disabled selected>Select Event Type...</option>
+                                    <option value="Wedding">Wedding</option>
+                                    <option value="Birthday">Birthday</option>
+                                    <option value="Corporate Event">Corporate Event</option>
+                                    <option value="Engagement">Engagement</option>
+                                    <option value="Conference">Conference</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <span class="input-label">Event Date</span>
+                                <input type="date" id="banquet-quote-date" class="input-field" required style="color-scheme: dark;">
+                                <div class="input-underline"></div>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                            <div class="input-group">
+                                <span class="input-label">Number of Guests</span>
+                                <input type="number" id="banquet-quote-guests" class="input-field" required min="1">
+                                <div class="input-underline"></div>
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-label">Budget Range</span>
+                                <input type="text" id="banquet-quote-budget" class="input-field" required placeholder="e.g. ₹50,000 - ₹1,00,000">
+                                <div class="input-underline"></div>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-label">Additional Notes</span>
+                            <textarea id="banquet-quote-notes" class="input-field" rows="2" style="resize: none;"></textarea>
+                            <div class="input-underline"></div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary sweep-shine" style="width: 100%; border: none; margin-top: 16px;">Request Quote</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    
+    const modal = document.getElementById('banquet-quote-modal');
+    const closeBtn = document.getElementById('banquet-quote-close');
+    const form = document.getElementById('banquet-quote-form');
+    const card = modal.querySelector('.inquiry-modal-card');
+    
+    const dateInput = form.querySelector('#banquet-quote-date');
+    const todayStr = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', todayStr);
+    dateInput.value = todayStr;
+
+    window.openBanquetQuoteModal = () => {
+        modal.classList.add('open');
+        document.body.classList.add('modal-open');
+        document.body.style.overflow = "hidden";
+        const scrollContent = modal.querySelector('.inquiry-modal-scroll-content');
+        if (scrollContent) scrollContent.scrollTop = 0;
+        if (typeof lenis !== 'undefined') lenis.stop();
+    };
+    
+    window.closeBanquetQuoteModal = () => {
+        modal.classList.remove('open');
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = "";
+        if (typeof lenis !== 'undefined') lenis.start();
+    };
+    
+    closeBtn.addEventListener('click', window.closeBanquetQuoteModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) window.closeBanquetQuoteModal();
+    });
+    
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const userName = form.querySelector('#banquet-quote-name').value;
+        const userEmail = form.querySelector('#banquet-quote-email').value;
+        const userPhone = form.querySelector('#banquet-quote-phone').value;
+        const eventType = form.querySelector('#banquet-quote-event-type').value;
+        const eventDate = form.querySelector('#banquet-quote-date').value;
+        const guests = form.querySelector('#banquet-quote-guests').value;
+        const budget = form.querySelector('#banquet-quote-budget').value;
+        const notes = form.querySelector('#banquet-quote-notes').value;
+
+        // WhatsApp redirect details
+        const waText = encodeURIComponent(
+            `Hello Hotel Siddharth Premiere, I would like to request a Banquet Quote:\n\n` +
+            `*Name:* ${userName}\n` +
+            `*Phone:* ${userPhone}\n` +
+            `*Email:* ${userEmail}\n` +
+            `*Event Type:* ${eventType}\n` +
+            `*Date:* ${eventDate}\n` +
+            `*Guests:* ${guests}\n` +
+            `*Budget Range:* ${budget}\n` +
+            `*Notes:* ${notes || 'None'}`
+        );
+        const waLink = `https://wa.me/918412800000?text=${waText}`;
+
+        // Admin Dashboard and Email notification (Future Ready & Logged)
+        console.log("Banquet Quote Requested:", { userName, userEmail, userPhone, eventType, eventDate, guests, budget, notes });
+        
+        card.innerHTML = `
+            <div class="inquiry-success-container">
+                <span class="material-symbols-outlined inquiry-success-icon">check_circle</span>
+                <h3 class="font-headline-lg" style="color: var(--primary); margin-bottom: 16px;">Quote Requested</h3>
+                <p class="font-body-lg" style="color: var(--on-surface); margin-bottom: 24px; font-weight: 300;">
+                    Thank you, <strong>${userName}</strong>! Your quote request for a <strong>${eventType}</strong> has been received.
+                </p>
+                <p class="font-body-md" style="color: var(--text-muted); margin-bottom: 32px;">
+                    Our event team will prepare a custom proposal for your event of <strong>${guests} guests</strong> (Budget Range: <strong>${budget}</strong>) and reach out to you at <strong>${userPhone}</strong>.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="btn-primary sweep-shine" style="width: 100%; border: none; text-decoration: none; display: flex; align-items: center; justify-content: center; background-color: #25D366; color: #fff;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: currentColor; margin-right: 8px;"><path d="M12.012 2c-5.506 0-9.988 4.482-9.988 9.988 0 1.761.459 3.477 1.332 4.992L2 22l5.163-1.355a9.923 9.923 0 0 0 4.849 1.266c5.506 0 9.987-4.481 9.987-9.988s-4.481-9.935-9.987-9.935zm0 18.232c-1.579 0-3.122-.424-4.475-1.226l-.32-.19-3.327.873.889-3.245-.208-.33c-.878-1.398-1.343-3.023-1.343-4.708 0-4.786 3.893-8.679 8.679-8.679 4.787 0 8.68 3.893 8.68 8.679 0 4.786-3.893 8.68-8.68 8.68zm4.761-6.505c-.26-.13-1.543-.762-1.782-.849-.24-.087-.413-.13-.586.13-.173.26-.671.849-.822 1.022-.152.173-.304.195-.565.065-.26-.13-1.101-.406-2.098-1.296-.776-.693-1.3-1.55-1.452-1.81-.152-.26-.016-.401.114-.53.118-.117.26-.304.39-.456.13-.152.173-.26.26-.434.087-.173.044-.325-.022-.456-.065-.13-.586-1.41-.803-1.93-.212-.511-.444-.442-.607-.45l-.52-.01c-.173 0-.455.065-.693.304-.24.238-.91.889-.91 2.168 0 1.278.93 2.515 1.06 2.689.13.173 1.83 2.796 4.433 3.916.619.267 1.1.427 1.477.546.621.198 1.186.17 1.633.103.498-.076 1.543-.63 1.761-1.238.218-.607.218-1.127.152-1.237-.066-.11-.24-.173-.5-.304z"/></svg>
+                        Send WhatsApp Message
+                    </a>
+                    <button class="btn-ghost" onclick="window.closeBanquetQuoteModal()" style="width: 100%;">Close Window</button>
+                </div>
             </div>
         `;
     });
@@ -914,7 +1247,7 @@ function createAccountModal() {
     if (document.getElementById('account-modal')) return;
 
     const modalHtml = `
-        <div class="inquiry-modal-overlay" id="account-modal" role="dialog" aria-modal="true" aria-label="User Menu">
+        <div class="inquiry-modal-overlay" id="account-modal" role="dialog" aria-modal="true" aria-label="User Menu" data-lenis-prevent>
             <div class="inquiry-modal-card glass-card lustre-border" style="border-radius: 0; max-width: 450px; text-align: center; padding: 40px;">
                 <button class="inquiry-modal-close account-modal-close" aria-label="Close User Menu">
                     <span class="material-symbols-outlined">close</span>
@@ -955,6 +1288,8 @@ function createAccountModal() {
 
     window.openAccountModal = () => {
         modal.classList.add('open');
+        document.body.classList.add('modal-open');
+        document.body.style.overflow = "hidden";
         if (typeof lenis !== 'undefined') lenis.stop();
 
         // GSAP animate account modal entry
@@ -979,6 +1314,8 @@ function createAccountModal() {
             ease: 'power2.in',
             onComplete: () => {
                 modal.classList.remove('open');
+                document.body.classList.remove('modal-open');
+                document.body.style.overflow = "";
             }
         });
         if (typeof lenis !== 'undefined') lenis.start();
@@ -999,7 +1336,7 @@ function createAccountModal() {
             e.preventDefault();
             window.closeAccountModal();
             setTimeout(() => {
-                if (window.openInquiryModal) window.openInquiryModal('');
+                if (window.openRoomBookingModal) window.openRoomBookingModal('');
             }, 300);
         });
     }
@@ -1446,7 +1783,10 @@ window.openLightbox = (room, index) => {
 
 // Initialize Modal and Hook Buttons
 function initAll() {
-    createInquiryModal();
+    console.log("initAll starting execution...");
+    createRoomBookingModal();
+    createBanquetInquiryModal();
+    createBanquetQuoteModal();
     createAccountModal();
     lightbox.init();
     
@@ -1468,7 +1808,7 @@ function initAll() {
     document.querySelectorAll('.inquire-trigger, #inquire-btn').forEach(trigger => {
         trigger.addEventListener('click', (e) => {
             e.preventDefault();
-            if (window.openInquiryModal) window.openInquiryModal('');
+            if (window.openRoomBookingModal) window.openRoomBookingModal('');
         });
     });
     
@@ -1477,8 +1817,34 @@ function initAll() {
         trigger.addEventListener('click', (e) => {
             e.preventDefault();
             const roomType = trigger.getAttribute('data-room');
-            if (window.openInquiryModal) window.openInquiryModal(roomType);
+            if (window.openRoomBookingModal) window.openRoomBookingModal(roomType);
         });
+    });
+
+    // Bind banquet inquiry triggers
+    document.querySelectorAll('.banquet-inquiry-trigger').forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (window.openBanquetInquiryModal) window.openBanquetInquiryModal();
+        });
+    });
+
+    // Bind banquet quote triggers
+    document.querySelectorAll('.banquet-quote-trigger').forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (window.openBanquetQuoteModal) window.openBanquetQuoteModal();
+        });
+    });
+
+    // Global escape key modal close handler
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (window.closeRoomBookingModal) window.closeRoomBookingModal();
+            if (window.closeBanquetInquiryModal) window.closeBanquetInquiryModal();
+            if (window.closeBanquetQuoteModal) window.closeBanquetQuoteModal();
+            if (window.closeAccountModal) window.closeAccountModal();
+        }
     });
     
     // Room Details Data System
@@ -1562,7 +1928,7 @@ function initAll() {
         const modalFeaturesList = detailsModal.querySelector('.modal-room-features-list');
         detailsBookBtn = detailsModal.querySelector('.modal-book-btn');
 
-        const openDetailsModal = (roomName) => {
+        window.openDetailsModal = (roomName) => {
             const data = roomDetailsData[roomName];
             if (!data) return;
 
@@ -1581,11 +1947,17 @@ function initAll() {
             }
 
             detailsModal.classList.add('open');
+            document.body.classList.add('modal-open');
+            document.body.style.overflow = "hidden";
+            const scrollBody = detailsModal.querySelector('.details-modal-body');
+            if (scrollBody) scrollBody.scrollTop = 0;
             if (typeof lenis !== 'undefined') lenis.stop();
         };
 
         const closeDetailsModal = () => {
             detailsModal.classList.remove('open');
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = "";
             if (typeof lenis !== 'undefined') lenis.start();
         };
 
@@ -1617,8 +1989,8 @@ function initAll() {
         if (detailsBookBtn) {
             detailsBookBtn.addEventListener('click', () => {
                 closeDetailsModal();
-                if (window.openInquiryModal) {
-                    window.openInquiryModal(detailsSelectedRoomBookingName);
+                if (window.openRoomBookingModal) {
+                    window.openRoomBookingModal(detailsSelectedRoomBookingName);
                 }
             });
         }
