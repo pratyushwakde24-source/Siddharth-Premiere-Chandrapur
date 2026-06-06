@@ -921,6 +921,132 @@ function createRoomBookingModal() {
 }
 
 // -------------------------------------------------------------
+// RESTAURANT RESERVATION MODAL CREATION AND LOGIC
+// -------------------------------------------------------------
+function createRestaurantReservationModal() {
+    if (document.getElementById('restaurant-reservation-modal')) return;
+
+    const modalHtml = `
+        <div class="inquiry-modal-overlay" id="restaurant-reservation-modal" data-lenis-prevent>
+            <div class="inquiry-modal-card glass-card lustre-border" style="border-radius: 0;">
+                <button class="inquiry-modal-close" id="restaurant-reservation-close" aria-label="Close Modal">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+                <div class="inquiry-modal-scroll-content">
+                    <h3 class="font-headline-lg" style="color: var(--primary); margin-bottom: 8px;">Reserve a Table</h3>
+                    <p class="font-body-md" style="color: var(--text-muted); margin-bottom: 32px;">Book your dining experience at Hotel Siddharth Premiere.</p>
+                    <form class="inquiry-form" id="restaurant-reservation-form">
+                        <div class="input-group">
+                            <span class="input-label">Full Name</span>
+                            <input type="text" id="restaurant-name" class="input-field" required>
+                            <div class="input-underline"></div>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-label">Mobile Number</span>
+                            <input type="tel" id="restaurant-phone" class="input-field" required pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number">
+                            <div class="input-underline"></div>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-label">Email Address</span>
+                            <input type="email" id="restaurant-email" class="input-field" required>
+                            <div class="input-underline"></div>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-label">Reservation Date</span>
+                            <input type="date" id="reservation-date" class="input-field" required style="color-scheme: dark;">
+                            <div class="input-underline"></div>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-label">Reservation Time</span>
+                            <input type="time" id="reservation-time" class="input-field" required>
+                            <div class="input-underline"></div>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-label">Number of Guests</span>
+                            <select id="reservation-guests" class="inquiry-select-field" required>
+                                <option value="" disabled selected>Select Guests...</option>
+                                <option value="1">1 Guest</option>
+                                <option value="2" selected>2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4+">4+ Guests</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-label">Special Requests / Occasion</span>
+                            <textarea id="reservation-requests" class="input-field" rows="2" style="resize: none;"></textarea>
+                            <div class="input-underline"></div>
+                        </div>
+                        <button type="submit" class="btn-primary sweep-shine" style="width: 100%; border: none; margin-top: 16px;">Submit Reservation</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+    const modal = document.getElementById('restaurant-reservation-modal');
+    const closeBtn = document.getElementById('restaurant-reservation-close');
+    const form = document.getElementById('restaurant-reservation-form');
+    const card = modal.querySelector('.inquiry-modal-card');
+
+    // Set min date to today for reservation date
+    const todayStr = new Date().toISOString().split('T')[0];
+    const dateInput = form.querySelector('#reservation-date');
+    dateInput.setAttribute('min', todayStr);
+    dateInput.value = todayStr;
+
+    window.openRestaurantReservationModal = () => {
+        modal.classList.add('open');
+        document.body.classList.add('modal-open');
+        document.body.style.overflow = "hidden";
+        const scrollContent = modal.querySelector('.inquiry-modal-scroll-content');
+        if (scrollContent) scrollContent.scrollTop = 0;
+        if (typeof lenis !== 'undefined') lenis.stop();
+    };
+
+    window.closeRestaurantReservationModal = () => {
+        modal.classList.remove('open');
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = "";
+        if (typeof lenis !== 'undefined') lenis.start();
+    };
+
+    closeBtn.addEventListener('click', window.closeRestaurantReservationModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) window.closeRestaurantReservationModal();
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = form.querySelector('#restaurant-name').value;
+        const email = form.querySelector('#restaurant-email').value;
+        const phone = form.querySelector('#restaurant-phone').value;
+        const date = form.querySelector('#reservation-date').value;
+        const time = form.querySelector('#reservation-time').value;
+        const guests = form.querySelector('#reservation-guests').value;
+        const requests = form.querySelector('#reservation-requests').value;
+        card.innerHTML = `
+            <div class="inquiry-success-container">
+                <span class="material-symbols-outlined inquiry-success-icon">check_circle</span>
+                <h3 class="font-headline-lg" style="color: var(--primary); margin-bottom: 16px;">Reservation Received</h3>
+                <p class="font-body-lg" style="color: var(--on-surface); margin-bottom: 24px; font-weight: 300;">
+                    Thank you, <strong>${name}</strong>! Your table reservation for <strong>${guests} guest(s)</strong> on <strong>${date} at ${time}</strong> has been received.
+                </p>
+                <p class="font-body-md" style="color: var(--text-muted); margin-bottom: 32px;">
+                    A confirmation has been sent to <strong>${email}</strong>. We look forward to serving you.
+                </p>
+                <button class="btn-primary sweep-shine" onclick="window.closeRestaurantReservationModal()" style="width: 100%; border: none;">Close Window</button>
+            </div>
+        `;
+    });
+}
+
+// Initialize restaurant reservation modal on page load
+createRestaurantReservationModal();
+
+
+// -------------------------------------------------------------
 // BANQUET INQUIRY MODAL CREATION AND LOGIC
 // -------------------------------------------------------------
 function createBanquetInquiryModal() {
@@ -1788,6 +1914,7 @@ function initAll() {
     createBanquetInquiryModal();
     createBanquetQuoteModal();
     createAccountModal();
+    createRestaurantReservationModal();
     lightbox.init();
     
     // Bind account trigger
@@ -1804,11 +1931,18 @@ function initAll() {
         new RoomSlider(sliderEl);
     });
     
-    // Bind all inquiry triggers (Header, CTA, Footer)
-    document.querySelectorAll('.inquire-trigger, #inquire-btn').forEach(trigger => {
+    console.log('Total inquiry triggers:', document.querySelectorAll('.inquire-trigger, #inquire-btn, .restaurant-reserve-trigger').length);
+    // Bind inquiry triggers for room booking and restaurant reservation
+    document.querySelectorAll('.inquire-trigger, #inquire-btn, .restaurant-reserve-trigger').forEach(trigger => {
         trigger.addEventListener('click', (e) => {
             e.preventDefault();
-            if (window.openRoomBookingModal) window.openRoomBookingModal('');
+            console.log('Restaurant reserve trigger clicked');
+            if (trigger.classList.contains('restaurant-reserve-trigger')) {
+                if (window.openRestaurantReservationModal) window.openRestaurantReservationModal();
+            } else {
+                if (window.openRoomBookingModal) window.openRoomBookingModal('');
+            }
+
         });
     });
     
